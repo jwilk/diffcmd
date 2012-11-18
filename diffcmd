@@ -1,0 +1,14 @@
+#!/bin/sh
+cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
+cache="$cachedir/$1"
+shift
+temp="$(mktemp "$cache".XXXXXX)"
+if "$@" > "$temp"
+then
+    diff -U 999 "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
+    mv -f "$temp" "$cache"
+else
+    rm -f "$temp"
+fi
+
+# vim:ts=4 sw=4 et
