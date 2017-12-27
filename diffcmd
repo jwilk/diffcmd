@@ -23,15 +23,17 @@ then
     exit 1
 fi
 cache="$cachedir/$ident"
-temp=$(mktemp "$cache".XXXXXX)
+tempdir=$(mktemp -d "${cachedir}/.tmp.XXXXXX")
+temp="$tempdir/$ident"
 if "$@" > "$temp"
 then
     touch -a "$cache"
-    diff -U "$context" "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
+    diff -U "$context" "$cache" "$temp" | filterdiff --strip=999 --addoldprefix=old/ --addnewprefix=new/ --remove-timestamps
     mv -f "$temp" "$cache"
+    rmdir "$tempdir"
 else
     xs=$?
-    rm -f "$temp"
+    rm -rf "$tempdir"
     exit $xs
 fi
 
