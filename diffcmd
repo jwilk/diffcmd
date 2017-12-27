@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Copyright © 2012-2017 Jakub Wilk <jwilk@jwilk.net>
+# SPDX-License-Identifier: MIT
+
 set -e -u
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
 cache="$cachedir/$1"
