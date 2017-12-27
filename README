@@ -1,0 +1,19 @@
+.. code:: console
+
+   $ diffcmd -h
+   Usage: diffcmd -n IDENT [-U N] -- COMMAND [ARG...]
+
+   $ diffcmd -n test -- bash -c 'echo $RANDOM'
+   --- old/test
+   +++ new/test
+   @@ -0,0 +1 @@
+   +4074
+
+   $ diffcmd -n test -- bash -c 'echo $RANDOM'
+   --- old/test
+   +++ new/test
+   @@ -1 +1 @@
+   -4074
+   +32451
+
+.. vim:ft=rst ts=3 sts=3 sw=3 et
