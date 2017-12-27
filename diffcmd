@@ -4,7 +4,10 @@
 # SPDX-License-Identifier: MIT
 
 set -e -u
-usage() printf 'Usage: %s -n IDENT [-U N] -- COMMAND [ARG...]\n' "${0##*/}"
+usage()
+{
+    printf 'Usage: %s -n IDENT [-U N] -- COMMAND [ARG...]\n' "${0##*/}"
+}
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
 context=3
 while getopts 'hn:U:' opt
