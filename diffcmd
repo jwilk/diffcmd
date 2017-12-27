@@ -26,6 +26,7 @@ cache="$cachedir/$ident"
 temp=$(mktemp "$cache".XXXXXX)
 if "$@" > "$temp"
 then
+    touch -a "$cache"
     diff -U "$context" "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
     mv -f "$temp" "$cache"
 else
