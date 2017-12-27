@@ -21,7 +21,7 @@ then
     exit 1
 fi
 cache="$cachedir/$ident"
-temp="$(mktemp "$cache".XXXXXX)"
+temp=$(mktemp "$cache".XXXXXX)
 if "$@" > "$temp"
 then
     diff -U 999 "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
