@@ -4,13 +4,15 @@
 # SPDX-License-Identifier: MIT
 
 set -e -u
-usage() printf 'Usage: %s -n IDENT -- COMMAND [ARG...]\n' "${0##*/}"
+usage() printf 'Usage: %s -n IDENT [-U N] -- COMMAND [ARG...]\n' "${0##*/}"
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
-while getopts 'hn:' opt
+context=3
+while getopts 'hn:U:' opt
 do
     case "$opt" in
         h) usage; exit 0;;
         n) ident="$OPTARG";;
+        U) context=$((OPTARG));;
         *) exit 1;;
     esac
 done
@@ -24,7 +26,7 @@ cache="$cachedir/$ident"
 temp=$(mktemp "$cache".XXXXXX)
 if "$@" > "$temp"
 then
-    diff -U 999 "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
+    diff -U "$context" "$cache" "$temp" | filterdiff --strip=999 --remove-timestamps
     mv -f "$temp" "$cache"
 else
     rm -f "$temp"
