@@ -1,0 +1,12 @@
+dist: trusty
+sudo: false
+language: generic
+addons:
+  apt:
+    packages:
+    - python-docutils
+    - python-pygments
+    - shellcheck
+script:
+- shellcheck diffcmd
+- private/check-rst
