@@ -4,9 +4,9 @@ language: generic
 addons:
   apt:
     packages:
-    - python-docutils
-    - python-pygments
     - shellcheck
+install:
+- python -m pip install --user docutils pygments
 script:
 - shellcheck diffcmd
 - private/check-rst
