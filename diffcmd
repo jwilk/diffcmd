@@ -26,6 +26,7 @@ then
     exit 1
 fi
 cache="$cachedir/$ident"
+(umask 0077 && mkdir -p "$cachedir")
 tempdir=$(mktemp -d "${cachedir}/.tmp.XXXXXX")
 temp="$tempdir/$ident"
 if "$@" > "$temp"
