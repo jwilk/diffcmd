@@ -1,10 +1,18 @@
 dist: trusty
 sudo: false
 language: generic
+addons:
+  apt:
+    packages:
+    - patchutils
 install:
 - python -m pip install --user pygments restructuredtext-lint
 script:
 - shellcheck diffcmd
 - restructuredtext-lint --encoding=UTF-8 README
+- PATH=".:$PATH"
+- diffcmd -h
+- diffcmd -n test -- bash -c 'echo $RANDOM'
+- diffcmd -n test -- bash -c 'echo $RANDOM'
 
 # vim:ts=2 sts=2 sw=2 et
