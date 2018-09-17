@@ -22,4 +22,17 @@ and prints diff if it changed since the last time the command was run:
    -4074
    +32451
 
+Prerequisites
+=============
+
+* diffutils_
+
+.. _diffutils:
+   https://www.gnu.org/software/diffutils/
+
+* patchutils_
+
+.. _patchutils:
+   https://github.com/twaugh/patchutils
+
 .. vim:ft=rst ts=3 sts=3 sw=3 et
