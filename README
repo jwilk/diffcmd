@@ -1,3 +1,9 @@
+Overview
+========
+
+**diffcmd** runs the supplied command, saves the output,
+and prints diff if it changed since the last time the command was run:
+
 .. code:: console
 
    $ diffcmd -h
