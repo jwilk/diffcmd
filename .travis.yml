@@ -9,9 +9,8 @@ install:
 script:
 - shellcheck diffcmd
 - restructuredtext-lint --encoding=UTF-8 README
+- prove -v
 - PATH=".:$PATH"
 - diffcmd -h
-- diffcmd -n test -- bash -c 'echo $RANDOM'
-- diffcmd -n test -- bash -c 'echo $RANDOM'
 
 # vim:ts=2 sts=2 sw=2 et
