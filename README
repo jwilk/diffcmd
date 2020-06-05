@@ -26,11 +26,10 @@ Prerequisites
 =============
 
 * diffutils_
+* patchutils_
 
 .. _diffutils:
    https://www.gnu.org/software/diffutils/
-
-* patchutils_
 
 .. _patchutils:
    https://github.com/twaugh/patchutils
