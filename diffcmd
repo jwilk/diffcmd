@@ -9,7 +9,7 @@ usage()
     printf 'Usage: %s -n IDENT [-U N] [-F RE] -- COMMAND [ARG...]\n' "${0##*/}"
 }
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
-funcre='$x'
+funcre='$@'
 context=3
 while getopts 'hn:U:F:' opt
 do
