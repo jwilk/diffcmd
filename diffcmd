@@ -6,16 +6,18 @@
 set -e -u
 usage()
 {
-    printf 'Usage: %s -n IDENT [-U N] -- COMMAND [ARG...]\n' "${0##*/}"
+    printf 'Usage: %s -n IDENT [-U N] [-F RE] -- COMMAND [ARG...]\n' "${0##*/}"
 }
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
+funcre='$x'
 context=3
-while getopts 'hn:U:' opt
+while getopts 'hn:U:F:' opt
 do
     case "$opt" in
         h) usage; exit 0;;
         n) ident="$OPTARG";;
         U) context=$((OPTARG));;
+        F) funcre=$OPTARG;;
         *) exit 1;;
     esac
 done
@@ -32,7 +34,7 @@ temp="$tempdir/$ident"
 if "$@" > "$temp"
 then
     touch -a "$cache"
-    diff -U "$context" "$cache" "$temp" | filterdiff --strip=999 --addoldprefix=old/ --addnewprefix=new/ --remove-timestamps
+    diff -U "$context" -F "$funcre" "$cache" "$temp" | filterdiff --strip=999 --addoldprefix=old/ --addnewprefix=new/ --remove-timestamps
     mv -f "$temp" "$cache"
     rmdir "$tempdir"
 else
