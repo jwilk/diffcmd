@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright © 2012-2021 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2023 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
 set -e -u
@@ -9,6 +9,7 @@ usage()
     printf 'Usage: %s -n IDENT [-U N] [-F RE] -- COMMAND [ARG...]\n' "${0##*/}"
 }
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
+statedir=${XDG_DATA_HOME:-"$HOME/.local/share"}/diffcmd
 funcre='$@'
 context=3
 while getopts 'hn:U:F:' opt
@@ -27,15 +28,20 @@ then
     usage >&2
     exit 1
 fi
-cache="$cachedir/$ident"
-(umask 0077 && mkdir -p "$cachedir")
-tempdir=$(mktemp -d "${cachedir}/.tmp.XXXXXX")
+legacy_state="$cachedir/$ident"
+state="$statedir/$ident"
+(umask 0077 && mkdir -p "$statedir")
+if [ -f "$legacy_state" ]
+then
+    mv "$legacy_state" "$state"
+fi
+tempdir=$(mktemp -d "${statedir}/.tmp.XXXXXX")
 temp="$tempdir/$ident"
 if "$@" > "$temp"
 then
-    touch -a "$cache"
-    diff -U "$context" -F "$funcre" "$cache" "$temp" | filterdiff --strip=999 --addoldprefix=old/ --addnewprefix=new/ --remove-timestamps
-    mv -f "$temp" "$cache"
+    touch -a "$state"
+    diff -U "$context" -F "$funcre" "$state" "$temp" | filterdiff --strip=999 --addoldprefix=old/ --addnewprefix=new/ --remove-timestamps
+    mv -f "$temp" "$state"
     rmdir "$tempdir"
 else
     xs=$?

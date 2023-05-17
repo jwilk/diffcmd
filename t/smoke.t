@@ -8,7 +8,8 @@ echo 1..3
 pdir="${0%/*}/.."
 prog="$pdir/diffcmd"
 tmpdir=$(mktemp -d -t diffcmd.test.XXXXXX)
-export XDG_CACHE_HOME="$tmpdir"
+export XDG_DATA_HOME="$tmpdir/data"
+export XDG_CACHE_HOME="$tmpdir/cache"
 out=$("$prog" -n test -- bash -c 'echo foo')
 if [ -n "$out" ]
 then
