@@ -7,7 +7,7 @@ and prints diff if it changed since the last time the command was run:
 .. code:: console
 
    $ diffcmd -h
-   Usage: diffcmd -n IDENT [-U N] [-F RE] -- COMMAND [ARG...]
+   Usage: diffcmd -n IDENT [-U N] [-F RE] [-I RE] -- COMMAND [ARG...]
 
    $ diffcmd -n test -- bash -c 'echo $RANDOM'
    --- old/test
