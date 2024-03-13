@@ -10,8 +10,8 @@ usage()
 }
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}/diffcmd
 statedir=${XDG_DATA_HOME:-"$HOME/.local/share"}/diffcmd
-funcre='$@'
-ignore='$@'
+funcre='\($\)@'
+ignore='\($\)@'
 context=3
 while getopts 'hn:U:F:I:' opt
 do
